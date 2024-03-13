@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/ai_assist/core/ais/image/chatgpt_request.gd" type="Script" id=1]
+[ext_resource path="res://main_ui.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.6, 0.6, 0.6, 0.254902 )
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.0234375
+anchor_top = 0.078125
+anchor_right = 0.976563
+anchor_bottom = 0.777344
+custom_styles/normal = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="TextEdit" type="TextEdit" parent="."]
+anchor_left = 0.0234375
+anchor_top = 0.859375
+anchor_right = 0.804688
+anchor_bottom = 0.976563
+caret_blink = true
+
+[node name="Button" type="Button" parent="."]
+anchor_left = 0.835938
+anchor_top = 0.890625
+anchor_right = 0.976563
+anchor_bottom = 0.953125
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ChatGPTRequest" type="HTTPRequest" parent="."]
+use_threads = true
+script = ExtResource( 1 )
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="completions_request_completed" from="ChatGPTRequest" to="." method="_on_completions_request_completed"]

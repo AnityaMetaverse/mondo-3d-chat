@@ -81,11 +81,16 @@ _global_script_class_icons={
 [application]
 
 config/name="mondo-3d-chat"
+run/main_scene="res://main_ui.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 AIPluginManager="*res://addons/ai_assist/ai_plugin_manager.gd"
+
+[display]
+
+window/size/height=768
 
 [editor_plugins]
 

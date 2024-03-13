@@ -15,8 +15,8 @@ signal resource_saved(resource)
 
 func _ready() -> void:
 	# Don't run if it's being edited instead of being in plugin mode.
-	if not Engine.editor_hint or get_tree().edited_scene_root == self:
-		return
+#	if not Engine.editor_hint or get_tree().edited_scene_root == self:
+#		return
 
 	var config := ConfigFile.new()
 	var file := File.new()
