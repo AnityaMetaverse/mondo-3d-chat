@@ -1,0 +1,71 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/ai_assist/ui/generate_images/advanced_settings/meshy.gd" type="Script" id=1]
+
+[node name="MeshyOptions" type="VBoxContainer"]
+margin_right = 664.0
+margin_bottom = 88.0
+custom_constants/separation = 12
+script = ExtResource( 1 )
+
+[node name="HBox2" type="HBoxContainer" parent="."]
+margin_right = 664.0
+margin_bottom = 24.0
+alignment = 1
+
+[node name="Label" type="Label" parent="HBox2"]
+margin_left = 173.0
+margin_top = 5.0
+margin_right = 271.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 98, 0 )
+text = "Seed"
+
+[node name="Seed" type="LineEdit" parent="HBox2"]
+unique_name_in_owner = true
+margin_left = 275.0
+margin_right = 475.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 200, 0 )
+text = "0"
+
+[node name="NewSeed" type="Button" parent="HBox2"]
+unique_name_in_owner = true
+margin_left = 479.0
+margin_right = 491.0
+margin_bottom = 24.0
+flat = true
+
+[node name="HBox" type="HBoxContainer" parent="."]
+margin_top = 36.0
+margin_right = 664.0
+margin_bottom = 56.0
+alignment = 1
+
+[node name="Grid" type="GridContainer" parent="HBox"]
+margin_left = 232.0
+margin_right = 432.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 200, 0 )
+columns = 2
+
+[node name="Label" type="Label" parent="HBox/Grid"]
+margin_top = 3.0
+margin_right = 98.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+text = "Style"
+
+[node name="Style" type="OptionButton" parent="HBox/Grid"]
+unique_name_in_owner = true
+margin_left = 102.0
+margin_right = 200.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Realistic"
+items = [ "Realistic", null, false, 0, null, "Cartoon", null, false, 1, null, "Low-Poly", null, false, 2, null ]
+selected = 0
+
+[connection signal="text_changed" from="HBox2/Seed" to="." method="_on_Seed_text_changed"]
+[connection signal="pressed" from="HBox2/NewSeed" to="." method="_on_NewSeed_pressed"]
+[connection signal="item_selected" from="HBox/Grid/Style" to="." method="_on_option_value_changed"]

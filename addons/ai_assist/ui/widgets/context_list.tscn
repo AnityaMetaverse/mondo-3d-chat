@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/ai_assist/ui/widgets/context_list.gd" type="Script" id=1]
+
+[node name="ContextList" type="VBoxContainer"]
+margin_right = 96.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
+script = ExtResource( 1 )
+
+[node name="New" type="Button" parent="."]
+margin_right = 100.0
+margin_bottom = 20.0
+text = "New"
+
+[node name="Contexts" type="Tree" parent="."]
+margin_top = 24.0
+margin_right = 100.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 80, 0 )
+size_flags_vertical = 3
+allow_reselect = true
+hide_folding = true
+hide_root = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Tip" type="Label" parent="Contexts"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_right = -8.0
+text = "Create a context to start working."
+align = 1
+valign = 1
+autowrap = true
+
+[node name="Disabled" type="ColorRect" parent="Contexts"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.392157 )
+
+[connection signal="pressed" from="New" to="." method="_on_New_pressed"]
+[connection signal="button_pressed" from="Contexts" to="." method="_on_Contexts_button_pressed"]
+[connection signal="item_edited" from="Contexts" to="." method="_on_Contexts_item_edited"]
+[connection signal="item_selected" from="Contexts" to="." method="_on_Contexts_item_selected"]

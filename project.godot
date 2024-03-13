@@ -1,0 +1,104 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "VBoxContainer",
+"class": "AssetViewer",
+"language": "GDScript",
+"path": "res://addons/ai_assist/ui/generate_images/asset_viewer.gd"
+}, {
+"base": "HTTPRequest",
+"class": "ChatGPTRequest",
+"language": "GDScript",
+"path": "res://addons/ai_assist/core/ais/image/chatgpt_request.gd"
+}, {
+"base": "Reference",
+"class": "ChatLog",
+"language": "GDScript",
+"path": "res://addons/ai_assist/core/chat_log.gd"
+}, {
+"base": "ImageAIBase",
+"class": "Dalle2Request",
+"language": "GDScript",
+"path": "res://addons/ai_assist/core/ais/image/dalle_2_request.gd"
+}, {
+"base": "ImageAIBase",
+"class": "Dalle3Request",
+"language": "GDScript",
+"path": "res://addons/ai_assist/core/ais/image/dalle_3_request.gd"
+}, {
+"base": "HTTPRequest",
+"class": "ImageAIBase",
+"language": "GDScript",
+"path": "res://addons/ai_assist/core/ais/image/image_ai_base.gd"
+}, {
+"base": "ModelAIBase",
+"class": "MeshyRequest",
+"language": "GDScript",
+"path": "res://addons/ai_assist/core/ais/model/meshy_request.gd"
+}, {
+"base": "HTTPRequest",
+"class": "ModelAIBase",
+"language": "GDScript",
+"path": "res://addons/ai_assist/core/ais/model/model_ai_base.gd"
+}, {
+"base": "ImageAIBase",
+"class": "StableDiffusionRequest",
+"language": "GDScript",
+"path": "res://addons/ai_assist/core/ais/image/stable_diffusion_request.gd"
+}, {
+"base": "ImageAIBase",
+"class": "StableDiffusionXLRequest",
+"language": "GDScript",
+"path": "res://addons/ai_assist/core/ais/image/stable_diffusion_xl_request.gd"
+}, {
+"base": "Reference",
+"class": "User",
+"language": "GDScript",
+"path": "res://addons/ai_assist/core/user.gd"
+} ]
+_global_script_class_icons={
+"AssetViewer": "",
+"ChatGPTRequest": "",
+"ChatLog": "",
+"Dalle2Request": "",
+"Dalle3Request": "",
+"ImageAIBase": "",
+"MeshyRequest": "",
+"ModelAIBase": "",
+"StableDiffusionRequest": "",
+"StableDiffusionXLRequest": "",
+"User": ""
+}
+
+[application]
+
+config/name="mondo-3d-chat"
+config/icon="res://icon.png"
+
+[autoload]
+
+AIPluginManager="*res://addons/ai_assist/ai_plugin_manager.gd"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/ai_assist/plugin.cfg" )
+
+[gui]
+
+common/drop_mouse_on_gui_input_disabled=true
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"

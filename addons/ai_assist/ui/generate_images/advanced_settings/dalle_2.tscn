@@ -1,0 +1,67 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/ai_assist/ui/generate_images/advanced_settings/dalle_2.gd" type="Script" id=1]
+
+[node name="Dalle2Options" type="HBoxContainer"]
+unique_name_in_owner = true
+margin_right = 432.0
+margin_bottom = 24.0
+alignment = 1
+script = ExtResource( 1 )
+
+[node name="Grid" type="GridContainer" parent="."]
+margin_right = 200.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 200, 0 )
+size_flags_horizontal = 0
+columns = 2
+
+[node name="Label" type="Label" parent="Grid"]
+margin_top = 3.0
+margin_right = 98.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+text = "Dimensions"
+
+[node name="Dimensions" type="OptionButton" parent="Grid"]
+unique_name_in_owner = true
+margin_left = 102.0
+margin_right = 200.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "512x512"
+items = [ "256x256", null, false, 0, null, "512x512", null, false, 1, null, "1024x1024", null, false, 2, null ]
+selected = 1
+
+[node name="VSeparator" type="VSeparator" parent="."]
+margin_left = 204.0
+margin_right = 228.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 24, 0 )
+
+[node name="Grid2" type="GridContainer" parent="."]
+margin_left = 232.0
+margin_right = 432.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 200, 0 )
+columns = 2
+
+[node name="Label" type="Label" parent="Grid2"]
+margin_top = 5.0
+margin_right = 98.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "Samples"
+
+[node name="Samples" type="SpinBox" parent="Grid2"]
+unique_name_in_owner = true
+margin_left = 102.0
+margin_right = 200.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 10.0
+value = 4.0
+
+[connection signal="item_selected" from="Grid/Dimensions" to="." method="_on_option_value_changed"]
+[connection signal="value_changed" from="Grid2/Samples" to="." method="_on_option_value_changed"]

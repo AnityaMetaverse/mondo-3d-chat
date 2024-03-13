@@ -1,0 +1,116 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://addons/ai_assist/core/ais/image/chatgpt_request.gd" type="Script" id=1]
+[ext_resource path="res://addons/ai_assist/ui/debugger/autocomment/autocomment.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0, 0, 0, 0.2 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.12549, 0.145098, 0.192157, 1 )
+
+[node name="Comment" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+script = ExtResource( 2 )
+
+[node name="ChatGPTRequest" type="HTTPRequest" parent="."]
+use_threads = true
+script = ExtResource( 1 )
+
+[node name="Button" type="Button" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+text = "Auto Comment"
+
+[node name="PopupDialog" type="PopupDialog" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 1 )
+
+[node name="Generating" type="Label" parent="PopupDialog"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+size_flags_stretch_ratio = 0.5
+text = "GENERATING COMMENTS"
+align = 1
+valign = 1
+
+[node name="Panel" type="Panel" parent="PopupDialog"]
+unique_name_in_owner = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -240.5
+margin_top = -150.5
+margin_right = 240.5
+margin_bottom = 150.5
+
+[node name="MarginContainer" type="MarginContainer" parent="PopupDialog/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PopupDialog/Panel/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 476.0
+margin_bottom = 296.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Comment" type="RichTextLabel" parent="PopupDialog/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+margin_right = 471.0
+margin_bottom = 267.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 2 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PopupDialog/Panel/MarginContainer/VBoxContainer"]
+margin_top = 271.0
+margin_right = 471.0
+margin_bottom = 291.0
+
+[node name="Control" type="Control" parent="PopupDialog/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_right = 312.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Regenerate" type="Button" parent="PopupDialog/Panel/MarginContainer/VBoxContainer/HBoxContainer/Control"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -10.0
+margin_right = 84.0
+margin_bottom = 10.0
+text = "Regenerate"
+
+[node name="AddComment" type="Button" parent="PopupDialog/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 316.0
+margin_right = 420.0
+margin_bottom = 20.0
+text = "Add Comment"
+
+[node name="Close" type="Button" parent="PopupDialog/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 424.0
+margin_right = 471.0
+margin_bottom = 20.0
+text = "Close"
+
+[connection signal="completions_request_completed" from="ChatGPTRequest" to="." method="_on_ChatGPTRequest_completions_request_completed"]
+[connection signal="pressed" from="Button" to="." method="_on_Comment_pressed"]
+[connection signal="pressed" from="PopupDialog/Panel/MarginContainer/VBoxContainer/HBoxContainer/Control/Regenerate" to="." method="_on_Regenerate_pressed"]
+[connection signal="pressed" from="PopupDialog/Panel/MarginContainer/VBoxContainer/HBoxContainer/AddComment" to="." method="_on_AddComment_pressed"]
+[connection signal="pressed" from="PopupDialog/Panel/MarginContainer/VBoxContainer/HBoxContainer/Close" to="PopupDialog" method="hide"]

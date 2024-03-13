@@ -1,0 +1,259 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://addons/ai_assist/ui/generate_images/advanced_settings/stable_diffusion_xl.gd" type="Script" id=1]
+[ext_resource path="res://addons/ai_assist/core/ais/image/stable_diffusion_xl_request.gd" type="Script" id=2]
+
+[node name="StableDiffusionXLOptions" type="VBoxContainer"]
+margin_right = 896.0
+margin_bottom = 88.0
+custom_constants/separation = 12
+script = ExtResource( 1 )
+
+[node name="HBox" type="HBoxContainer" parent="."]
+margin_right = 896.0
+margin_bottom = 24.0
+alignment = 1
+
+[node name="Label" type="Label" parent="HBox"]
+margin_left = 148.0
+margin_top = 5.0
+margin_right = 248.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 100, 0 )
+text = "Seed"
+
+[node name="Seed" type="LineEdit" parent="HBox"]
+unique_name_in_owner = true
+margin_left = 252.0
+margin_right = 452.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 200, 0 )
+text = "-1"
+
+[node name="NewSeed" type="Button" parent="HBox"]
+unique_name_in_owner = true
+margin_left = 456.0
+margin_right = 468.0
+margin_bottom = 24.0
+flat = true
+
+[node name="VSeparator" type="VSeparator" parent="HBox"]
+margin_left = 472.0
+margin_right = 476.0
+margin_bottom = 24.0
+
+[node name="LoRa" type="MenuButton" parent="HBox"]
+unique_name_in_owner = true
+margin_left = 480.0
+margin_right = 562.0
+margin_bottom = 24.0
+text = "Add a LoRa"
+flat = false
+
+[node name="Space" type="Control" parent="HBox"]
+margin_left = 566.0
+margin_right = 566.0
+margin_bottom = 24.0
+
+[node name="Label2" type="Label" parent="HBox"]
+margin_left = 570.0
+margin_top = 5.0
+margin_right = 670.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 100, 0 )
+text = "Strength"
+
+[node name="LoRaStrength" type="SpinBox" parent="HBox"]
+unique_name_in_owner = true
+margin_left = 674.0
+margin_right = 748.0
+margin_bottom = 24.0
+max_value = 2.0
+step = 0.1
+value = 0.8
+
+[node name="HBox2" type="HBoxContainer" parent="."]
+margin_top = 36.0
+margin_right = 896.0
+margin_bottom = 88.0
+alignment = 1
+
+[node name="Dimensions" type="GridContainer" parent="HBox2"]
+margin_left = 116.0
+margin_right = 316.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 200, 0 )
+size_flags_horizontal = 0
+columns = 2
+
+[node name="Label" type="Label" parent="HBox2/Dimensions"]
+margin_top = 5.0
+margin_right = 98.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "Width"
+
+[node name="Width" type="SpinBox" parent="HBox2/Dimensions"]
+unique_name_in_owner = true
+margin_left = 102.0
+margin_right = 200.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 1024.0
+max_value = 1024.0
+step = 64.0
+value = 1024.0
+
+[node name="Label2" type="Label" parent="HBox2/Dimensions"]
+margin_top = 33.0
+margin_right = 98.0
+margin_bottom = 47.0
+size_flags_horizontal = 3
+text = "Height"
+
+[node name="Height" type="SpinBox" parent="HBox2/Dimensions"]
+unique_name_in_owner = true
+margin_left = 102.0
+margin_top = 28.0
+margin_right = 200.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+min_value = 1024.0
+max_value = 1024.0
+step = 64.0
+value = 1024.0
+
+[node name="VSeparator" type="VSeparator" parent="HBox2"]
+margin_left = 320.0
+margin_right = 344.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 24, 0 )
+
+[node name="Sampling" type="GridContainer" parent="HBox2"]
+margin_left = 348.0
+margin_right = 548.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 200, 0 )
+size_flags_horizontal = 0
+columns = 2
+
+[node name="Label" type="Label" parent="HBox2/Sampling"]
+margin_top = 5.0
+margin_right = 98.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "Samples"
+
+[node name="Samples" type="SpinBox" parent="HBox2/Sampling"]
+unique_name_in_owner = true
+margin_left = 102.0
+margin_right = 200.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 10.0
+value = 4.0
+
+[node name="Label2" type="Label" parent="HBox2/Sampling"]
+margin_top = 33.0
+margin_right = 98.0
+margin_bottom = 47.0
+size_flags_horizontal = 3
+text = "Steps"
+
+[node name="Steps" type="SpinBox" parent="HBox2/Sampling"]
+unique_name_in_owner = true
+margin_left = 102.0
+margin_top = 28.0
+margin_right = 200.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+min_value = 10.0
+max_value = 150.0
+value = 30.0
+
+[node name="VSeparator2" type="VSeparator" parent="HBox2"]
+margin_left = 552.0
+margin_right = 576.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 24, 0 )
+
+[node name="Grid" type="GridContainer" parent="HBox2"]
+margin_left = 580.0
+margin_right = 780.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 200, 0 )
+columns = 2
+
+[node name="Label" type="Label" parent="HBox2/Grid"]
+margin_top = 5.0
+margin_right = 98.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "CFG Scale"
+
+[node name="CFGScale" type="SpinBox" parent="HBox2/Grid"]
+unique_name_in_owner = true
+margin_left = 102.0
+margin_right = 200.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+max_value = 35.0
+value = 7.0
+
+[node name="HBox" type="HBoxContainer" parent="HBox2/Grid"]
+margin_top = 28.0
+margin_right = 98.0
+margin_bottom = 52.0
+
+[node name="Label" type="Label" parent="HBox2/Grid/HBox"]
+margin_top = 5.0
+margin_right = 94.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "Tiling"
+
+[node name="TilingHelp" type="TextureRect" parent="HBox2/Grid/HBox"]
+unique_name_in_owner = true
+margin_left = 98.0
+margin_right = 98.0
+margin_bottom = 24.0
+hint_tooltip = "The \"Asymmetric Tiling\" plugin needs to be configured in your server for these options to work."
+stretch_mode = 4
+
+[node name="Tiling" type="HBoxContainer" parent="HBox2/Grid"]
+margin_left = 102.0
+margin_top = 28.0
+margin_right = 200.0
+margin_bottom = 52.0
+
+[node name="TilingX" type="CheckBox" parent="HBox2/Grid/Tiling"]
+unique_name_in_owner = true
+margin_right = 47.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "X"
+
+[node name="TilingY" type="CheckBox" parent="HBox2/Grid/Tiling"]
+unique_name_in_owner = true
+margin_left = 51.0
+margin_right = 98.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "Y"
+
+[node name="StableDiffusionXLRequest" type="HTTPRequest" parent="."]
+use_threads = true
+script = ExtResource( 2 )
+
+[connection signal="text_changed" from="HBox/Seed" to="." method="_on_Seed_text_changed"]
+[connection signal="pressed" from="HBox/NewSeed" to="." method="_on_NewSeed_pressed"]
+[connection signal="value_changed" from="HBox/LoRaStrength" to="." method="_on_option_value_changed"]
+[connection signal="value_changed" from="HBox2/Dimensions/Width" to="." method="_on_option_value_changed"]
+[connection signal="value_changed" from="HBox2/Dimensions/Height" to="." method="_on_option_value_changed"]
+[connection signal="value_changed" from="HBox2/Sampling/Samples" to="." method="_on_option_value_changed"]
+[connection signal="value_changed" from="HBox2/Sampling/Steps" to="." method="_on_option_value_changed"]
+[connection signal="value_changed" from="HBox2/Grid/CFGScale" to="." method="_on_option_value_changed"]
+[connection signal="toggled" from="HBox2/Grid/Tiling/TilingX" to="." method="_on_option_value_changed"]
+[connection signal="toggled" from="HBox2/Grid/Tiling/TilingY" to="." method="_on_option_value_changed"]
+[connection signal="loras_updated" from="StableDiffusionXLRequest" to="." method="_on_StableDiffusionXLRequest_loras_updated"]

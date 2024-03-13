@@ -1,0 +1,192 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/ai_assist/ui/generate_images/advanced_settings/stable_diffusion.gd" type="Script" id=1]
+
+[node name="StableDiffusionOptions" type="VBoxContainer"]
+margin_left = 170.0
+margin_right = 834.0
+margin_bottom = 88.0
+custom_constants/separation = 12
+script = ExtResource( 1 )
+
+[node name="HBox2" type="HBoxContainer" parent="."]
+margin_right = 664.0
+margin_bottom = 24.0
+alignment = 1
+
+[node name="Label" type="Label" parent="HBox2"]
+margin_left = 173.0
+margin_top = 5.0
+margin_right = 271.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 98, 0 )
+text = "Seed"
+
+[node name="Seed" type="LineEdit" parent="HBox2"]
+unique_name_in_owner = true
+margin_left = 275.0
+margin_right = 475.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 200, 0 )
+text = "0"
+
+[node name="NewSeed" type="Button" parent="HBox2"]
+unique_name_in_owner = true
+margin_left = 479.0
+margin_right = 491.0
+margin_bottom = 24.0
+flat = true
+
+[node name="HBox" type="HBoxContainer" parent="."]
+margin_top = 36.0
+margin_right = 664.0
+margin_bottom = 88.0
+
+[node name="Dimensions" type="GridContainer" parent="HBox"]
+margin_right = 200.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 200, 0 )
+size_flags_horizontal = 0
+columns = 2
+
+[node name="Label" type="Label" parent="HBox/Dimensions"]
+margin_top = 5.0
+margin_right = 98.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "Width"
+
+[node name="Width" type="SpinBox" parent="HBox/Dimensions"]
+unique_name_in_owner = true
+margin_left = 102.0
+margin_right = 200.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 64.0
+max_value = 1024.0
+step = 64.0
+value = 512.0
+
+[node name="Label2" type="Label" parent="HBox/Dimensions"]
+margin_top = 33.0
+margin_right = 98.0
+margin_bottom = 47.0
+size_flags_horizontal = 3
+text = "Height"
+
+[node name="Height" type="SpinBox" parent="HBox/Dimensions"]
+unique_name_in_owner = true
+margin_left = 102.0
+margin_top = 28.0
+margin_right = 200.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+min_value = 64.0
+max_value = 1024.0
+step = 64.0
+value = 512.0
+
+[node name="VSeparator" type="VSeparator" parent="HBox"]
+margin_left = 204.0
+margin_right = 228.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 24, 0 )
+
+[node name="Sampling" type="GridContainer" parent="HBox"]
+margin_left = 232.0
+margin_right = 432.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 200, 0 )
+size_flags_horizontal = 0
+columns = 2
+
+[node name="Label" type="Label" parent="HBox/Sampling"]
+margin_top = 5.0
+margin_right = 98.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "Samples"
+
+[node name="Samples" type="SpinBox" parent="HBox/Sampling"]
+unique_name_in_owner = true
+margin_left = 102.0
+margin_right = 200.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 10.0
+value = 4.0
+
+[node name="Label2" type="Label" parent="HBox/Sampling"]
+margin_top = 33.0
+margin_right = 98.0
+margin_bottom = 47.0
+size_flags_horizontal = 3
+text = "Steps"
+
+[node name="Steps" type="SpinBox" parent="HBox/Sampling"]
+unique_name_in_owner = true
+margin_left = 102.0
+margin_top = 28.0
+margin_right = 200.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+min_value = 10.0
+max_value = 150.0
+value = 30.0
+
+[node name="VSeparator2" type="VSeparator" parent="HBox"]
+margin_left = 436.0
+margin_right = 460.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 24, 0 )
+
+[node name="Grid" type="GridContainer" parent="HBox"]
+margin_left = 464.0
+margin_right = 664.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 200, 0 )
+columns = 2
+
+[node name="Label" type="Label" parent="HBox/Grid"]
+margin_top = 3.0
+margin_right = 98.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+text = "Style"
+
+[node name="Style" type="OptionButton" parent="HBox/Grid"]
+unique_name_in_owner = true
+margin_left = 102.0
+margin_right = 200.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Generic"
+items = [ "Generic", null, false, 0, null, "Enhance", null, false, 1, null, "Anime", null, false, 2, null, "Photographic", null, false, 3, null, "Digital Art", null, false, 4, null, "Comic Book", null, false, 5, null, "Fantasy Art", null, false, 6, null, "Line Art", null, false, 7, null, "Analog Film", null, false, 8, null, "Neon Punk", null, false, 9, null, "Isometric", null, false, 10, null, "Low Poly", null, false, 11, null, "Origami", null, false, 12, null, "Modeling Compound", null, false, 13, null, "Cinematic", null, false, 14, null, "3D Model", null, false, 15, null, "Pixel Art", null, false, 16, null, "Tile Texture", null, false, 17, null ]
+selected = 0
+
+[node name="Label2" type="Label" parent="HBox/Grid"]
+margin_top = 29.0
+margin_right = 98.0
+margin_bottom = 43.0
+size_flags_horizontal = 3
+text = "CFG Scale"
+
+[node name="CFGScale" type="SpinBox" parent="HBox/Grid"]
+unique_name_in_owner = true
+margin_left = 102.0
+margin_top = 24.0
+margin_right = 200.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+max_value = 35.0
+value = 7.0
+
+[connection signal="text_changed" from="HBox2/Seed" to="." method="_on_Seed_text_changed"]
+[connection signal="pressed" from="HBox2/NewSeed" to="." method="_on_NewSeed_pressed"]
+[connection signal="value_changed" from="HBox/Dimensions/Width" to="." method="_on_option_value_changed"]
+[connection signal="value_changed" from="HBox/Dimensions/Height" to="." method="_on_option_value_changed"]
+[connection signal="value_changed" from="HBox/Sampling/Samples" to="." method="_on_option_value_changed"]
+[connection signal="value_changed" from="HBox/Sampling/Steps" to="." method="_on_option_value_changed"]
+[connection signal="item_selected" from="HBox/Grid/Style" to="." method="_on_option_value_changed"]
+[connection signal="value_changed" from="HBox/Grid/CFGScale" to="." method="_on_option_value_changed"]

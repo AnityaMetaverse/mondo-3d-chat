@@ -1,0 +1,311 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://addons/ai_assist/core/ais/image/dalle_3_request.gd" type="Script" id=1]
+[ext_resource path="res://addons/ai_assist/ui/generate_images/advanced_settings/dalle_2.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/ai_assist/ui/widgets/context_list.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/ai_assist/core/ais/image/stable_diffusion_request.gd" type="Script" id=4]
+[ext_resource path="res://addons/ai_assist/core/ais/image/stable_diffusion_xl_request.gd" type="Script" id=5]
+[ext_resource path="res://addons/ai_assist/ui/generate_images/history_dialog.tscn" type="PackedScene" id=6]
+[ext_resource path="res://addons/ai_assist/ui/generate_images/advanced_settings/stable_diffusion.tscn" type="PackedScene" id=7]
+[ext_resource path="res://addons/ai_assist/core/ais/image/dalle_2_request.gd" type="Script" id=8]
+[ext_resource path="res://addons/ai_assist/ui/generate_images/main_panel.gd" type="Script" id=9]
+[ext_resource path="res://addons/ai_assist/ui/generate_images/advanced_settings/dalle_3.tscn" type="PackedScene" id=10]
+[ext_resource path="res://addons/ai_assist/ui/generate_images/advanced_settings/stable_diffusion_xl.tscn" type="PackedScene" id=11]
+[ext_resource path="res://addons/ai_assist/ui/generate_images/asset_viewer.tscn" type="PackedScene" id=12]
+[ext_resource path="res://addons/ai_assist/core/ais/model/meshy_request.gd" type="Script" id=13]
+[ext_resource path="res://addons/ai_assist/ui/generate_images/advanced_settings/meshy.tscn" type="PackedScene" id=14]
+
+[node name="GeneratePicture" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 300.0 ],
+"_edit_lock_": true,
+"_edit_vertical_guides_": [ 1510.0 ]
+}
+
+[node name="AIs" type="Node" parent="."]
+
+[node name="Dalle2Request" type="HTTPRequest" parent="AIs"]
+unique_name_in_owner = true
+use_threads = true
+script = ExtResource( 8 )
+
+[node name="Dalle3Request" type="HTTPRequest" parent="AIs"]
+unique_name_in_owner = true
+use_threads = true
+script = ExtResource( 1 )
+
+[node name="StableDiffusionRequest" type="HTTPRequest" parent="AIs"]
+unique_name_in_owner = true
+use_threads = true
+script = ExtResource( 4 )
+
+[node name="StableDiffusionXLRequest" type="HTTPRequest" parent="AIs"]
+unique_name_in_owner = true
+use_threads = true
+script = ExtResource( 5 )
+
+[node name="MeshyRequest" type="HTTPRequest" parent="AIs"]
+unique_name_in_owner = true
+use_threads = true
+script = ExtResource( 13 )
+
+[node name="SaveDelay" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="HSplit" type="HSplitContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+split_offset = -32
+
+[node name="VBox" type="VBoxContainer" parent="HSplit"]
+margin_right = 880.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Options" type="HBoxContainer" parent="HSplit/VBox"]
+margin_right = 880.0
+margin_bottom = 128.0
+size_flags_horizontal = 3
+
+[node name="Prompts" type="VBoxContainer" parent="HSplit/VBox/Options"]
+margin_right = 671.0
+margin_bottom = 128.0
+size_flags_horizontal = 3
+
+[node name="HBox" type="HBoxContainer" parent="HSplit/VBox/Options/Prompts"]
+margin_right = 671.0
+margin_bottom = 20.0
+
+[node name="Label" type="Label" parent="HSplit/VBox/Options/Prompts/HBox"]
+margin_top = 3.0
+margin_right = 475.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+text = "Prompt:"
+
+[node name="SavePreset" type="Button" parent="HSplit/VBox/Options/Prompts/HBox"]
+unique_name_in_owner = true
+margin_left = 479.0
+margin_right = 491.0
+margin_bottom = 20.0
+hint_tooltip = "Save current prompts and settings into a new preset."
+disabled = true
+flat = true
+
+[node name="Presets" type="OptionButton" parent="HSplit/VBox/Options/Prompts/HBox"]
+unique_name_in_owner = true
+margin_left = 495.0
+margin_right = 655.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 160, 0 )
+clip_text = true
+
+[node name="RemovePreset" type="Button" parent="HSplit/VBox/Options/Prompts/HBox"]
+unique_name_in_owner = true
+margin_left = 659.0
+margin_right = 671.0
+margin_bottom = 20.0
+hint_tooltip = "Remove currently selected preset."
+disabled = true
+flat = true
+
+[node name="PromptPositive" type="TextEdit" parent="HSplit/VBox/Options/Prompts"]
+margin_top = 24.0
+margin_right = 671.0
+margin_bottom = 128.0
+size_flags_vertical = 3
+wrap_enabled = true
+caret_blink = true
+
+[node name="Label2" type="Label" parent="HSplit/VBox/Options/Prompts"]
+visible = false
+margin_top = 66.0
+margin_right = 671.0
+margin_bottom = 80.0
+text = "Negative Prompt:"
+
+[node name="PromptNegative" type="TextEdit" parent="HSplit/VBox/Options/Prompts"]
+visible = false
+margin_top = 75.0
+margin_right = 671.0
+margin_bottom = 128.0
+size_flags_vertical = 3
+wrap_enabled = true
+caret_blink = true
+
+[node name="VSeparator" type="VSeparator" parent="HSplit/VBox/Options"]
+margin_left = 675.0
+margin_right = 679.0
+margin_bottom = 128.0
+
+[node name="Actions" type="VBoxContainer" parent="HSplit/VBox/Options"]
+margin_left = 683.0
+margin_right = 880.0
+margin_bottom = 128.0
+
+[node name="Generate" type="Button" parent="HSplit/VBox/Options/Actions"]
+margin_right = 197.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+disabled = true
+text = "Generate"
+
+[node name="AIType" type="OptionButton" parent="HSplit/VBox/Options/Actions"]
+unique_name_in_owner = true
+margin_top = 24.0
+margin_right = 197.0
+margin_bottom = 44.0
+rect_min_size = Vector2( 140, 0 )
+disabled = true
+text = "DALL-E 2"
+items = [ "DALL-E 2", null, false, 0, null, "DALL-E 3", null, false, 1, null, "Stable Diffusion", null, false, 2, null, "Stable Diffusion XL", null, false, 3, null, "Meshy", null, false, 4, null ]
+selected = 0
+
+[node name="HSeparator" type="HSeparator" parent="HSplit/VBox/Options/Actions"]
+margin_top = 48.0
+margin_right = 197.0
+margin_bottom = 52.0
+
+[node name="History" type="Button" parent="HSplit/VBox/Options/Actions"]
+margin_top = 56.0
+margin_right = 197.0
+margin_bottom = 76.0
+disabled = true
+text = "History"
+
+[node name="HSeparator2" type="HSeparator" parent="HSplit/VBox/Options/Actions"]
+margin_top = 80.0
+margin_right = 197.0
+margin_bottom = 84.0
+
+[node name="AdvancedToggle" type="CheckButton" parent="HSplit/VBox/Options/Actions"]
+unique_name_in_owner = true
+margin_top = 88.0
+margin_right = 197.0
+margin_bottom = 128.0
+disabled = true
+text = "Advanced Options"
+
+[node name="AdvancedOptions" type="HBoxContainer" parent="HSplit/VBox"]
+unique_name_in_owner = true
+visible = false
+margin_top = 44.0
+margin_right = 1004.0
+margin_bottom = 68.0
+alignment = 1
+
+[node name="Dalle2Options" parent="HSplit/VBox/AdvancedOptions" instance=ExtResource( 2 )]
+
+[node name="Dalle3Options" parent="HSplit/VBox/AdvancedOptions" instance=ExtResource( 10 )]
+visible = false
+margin_right = 732.0
+margin_bottom = 24.0
+
+[node name="StableDiffusionOptions" parent="HSplit/VBox/AdvancedOptions" instance=ExtResource( 7 )]
+unique_name_in_owner = true
+visible = false
+
+[node name="StableDiffusionXLOptions" parent="HSplit/VBox/AdvancedOptions" instance=ExtResource( 11 )]
+unique_name_in_owner = true
+visible = false
+
+[node name="MeshyOptions" parent="HSplit/VBox/AdvancedOptions" instance=ExtResource( 14 )]
+unique_name_in_owner = true
+visible = false
+
+[node name="PanelContainer" type="PanelContainer" parent="HSplit/VBox"]
+margin_top = 132.0
+margin_right = 880.0
+margin_bottom = 600.0
+size_flags_vertical = 3
+
+[node name="ResultsScroll" type="ScrollContainer" parent="HSplit/VBox/PanelContainer"]
+unique_name_in_owner = true
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 873.0
+margin_bottom = 461.0
+follow_focus = true
+scroll_horizontal_enabled = false
+
+[node name="Results" type="GridContainer" parent="HSplit/VBox/PanelContainer/ResultsScroll"]
+unique_name_in_owner = true
+margin_right = 866.0
+margin_bottom = 454.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="AssetViewer" parent="HSplit/VBox/PanelContainer" instance=ExtResource( 12 )]
+unique_name_in_owner = true
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 873.0
+margin_bottom = 461.0
+
+[node name="ContextList" parent="HSplit" instance=ExtResource( 3 )]
+margin_left = 892.0
+margin_right = 1024.0
+margin_bottom = 600.0
+
+[node name="HistoryDialog" parent="." instance=ExtResource( 6 )]
+
+[node name="ErrorDialog" type="AcceptDialog" parent="."]
+margin_right = 300.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 300, 0 )
+window_title = "Alert"
+dialog_autowrap = true
+
+[node name="SavePresetDialog" type="ConfirmationDialog" parent="."]
+margin_right = 216.0
+margin_bottom = 68.0
+rect_min_size = Vector2( 170, 59.5 )
+window_title = "New Preset"
+
+[node name="PresetName" type="LineEdit" parent="SavePresetDialog"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 208.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 0 )
+
+[connection signal="timeout" from="SaveDelay" to="." method="_on_SaveDelay_timeout"]
+[connection signal="pressed" from="HSplit/VBox/Options/Prompts/HBox/SavePreset" to="." method="_on_SavePreset_pressed"]
+[connection signal="item_selected" from="HSplit/VBox/Options/Prompts/HBox/Presets" to="." method="_on_Presets_item_selected"]
+[connection signal="pressed" from="HSplit/VBox/Options/Prompts/HBox/RemovePreset" to="." method="_on_RemovePreset_pressed"]
+[connection signal="text_changed" from="HSplit/VBox/Options/Prompts/PromptPositive" to="." method="_on_PromptPositive_text_changed"]
+[connection signal="pressed" from="HSplit/VBox/Options/Actions/Generate" to="." method="_on_Send_Button_pressed"]
+[connection signal="item_selected" from="HSplit/VBox/Options/Actions/AIType" to="." method="_on_option_value_changed"]
+[connection signal="item_selected" from="HSplit/VBox/Options/Actions/AIType" to="." method="_on_AIType_item_selected"]
+[connection signal="pressed" from="HSplit/VBox/Options/Actions/History" to="HistoryDialog" method="popup_centered_ratio" binds= [ 0.5 ]]
+[connection signal="toggled" from="HSplit/VBox/Options/Actions/AdvancedToggle" to="." method="_on_option_value_changed"]
+[connection signal="toggled" from="HSplit/VBox/Options/Actions/AdvancedToggle" to="HSplit/VBox/AdvancedOptions" method="set_visible"]
+[connection signal="save_requested" from="HSplit/VBox/AdvancedOptions/Dalle2Options" to="SaveDelay" method="start"]
+[connection signal="save_requested" from="HSplit/VBox/AdvancedOptions/Dalle3Options" to="SaveDelay" method="start"]
+[connection signal="save_requested" from="HSplit/VBox/AdvancedOptions/StableDiffusionOptions" to="SaveDelay" method="start"]
+[connection signal="lora_selected" from="HSplit/VBox/AdvancedOptions/StableDiffusionXLOptions" to="." method="_on_StableDiffusionXLOptions_lora_selected"]
+[connection signal="save_requested" from="HSplit/VBox/AdvancedOptions/StableDiffusionXLOptions" to="SaveDelay" method="start"]
+[connection signal="save_requested" from="HSplit/VBox/AdvancedOptions/MeshyOptions" to="SaveDelay" method="start"]
+[connection signal="file_saved" from="HSplit/VBox/PanelContainer/AssetViewer" to="." method="_on_AssetViewer_file_saved"]
+[connection signal="generate_variations_requested" from="HSplit/VBox/PanelContainer/AssetViewer" to="." method="generate_asset_variations"]
+[connection signal="go_back_requested" from="HSplit/VBox/PanelContainer/AssetViewer" to="HSplit/VBox/PanelContainer/ResultsScroll" method="show"]
+[connection signal="context_created_new" from="HSplit/ContextList" to="." method="_on_ContextList_context_created_new"]
+[connection signal="context_removed" from="HSplit/ContextList" to="." method="_on_ContextList_context_removed"]
+[connection signal="context_renamed" from="HSplit/ContextList" to="." method="_on_ContextList_context_renamed"]
+[connection signal="context_selected" from="HSplit/ContextList" to="." method="_on_ContextList_context_selected"]
+[connection signal="image_pressed" from="HistoryDialog" to="." method="_on_HistoryDialog_image_pressed"]
+[connection signal="images_removed" from="HistoryDialog" to="." method="_on_HistoryDialog_images_removed"]
+[connection signal="confirmed" from="SavePresetDialog" to="." method="_on_SavePresetDialog_confirmed"]
+[connection signal="text_changed" from="SavePresetDialog/PresetName" to="." method="_on_PresetName_text_changed"]
+[connection signal="text_entered" from="SavePresetDialog/PresetName" to="." method="_on_PresetName_text_entered"]
