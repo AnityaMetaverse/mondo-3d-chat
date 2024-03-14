@@ -1,0 +1,96 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://addons/texttospeech/TextToSpeech.gd" type="Script" id=1]
+[ext_resource path="res://addons/ai_assist/core/ais/image/chatgpt_request.gd" type="Script" id=2]
+[ext_resource path="res://main_ui.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0, 0, 0, 0.2 )
+corner_radius_top_left = 200
+corner_radius_top_right = 200
+corner_radius_bottom_right = 200
+corner_radius_bottom_left = 200
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 1, 0, 0, 1 )
+corner_radius_top_left = 39
+corner_radius_top_right = 39
+corner_radius_bottom_right = 39
+corner_radius_bottom_left = 39
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0, 0, 0, 0.21 )
+corner_radius_top_left = 39
+corner_radius_top_right = 39
+corner_radius_bottom_right = 39
+corner_radius_bottom_left = 39
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+
+[node name="History" type="VBoxContainer" parent="."]
+anchor_left = 0.0234375
+anchor_top = 0.078125
+anchor_right = 0.976563
+anchor_bottom = 0.777344
+
+[node name="PanelContainer" type="PanelContainer" parent="History"]
+margin_right = 976.0
+margin_bottom = 29.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="History/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 969.0
+margin_bottom = 22.0
+fit_content_height = true
+
+[node name="Prompt" type="Panel" parent="."]
+anchor_left = 0.0234375
+anchor_top = 0.859375
+anchor_right = 0.976563
+anchor_bottom = 0.976563
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="TextEdit" type="TextEdit" parent="Prompt"]
+anchor_left = 0.0409836
+anchor_top = 0.0666667
+anchor_right = 0.901639
+anchor_bottom = 0.933333
+custom_styles/normal = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Button" type="Button" parent="Prompt"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -88.0005
+margin_top = -39.0002
+margin_right = -10.0005
+margin_bottom = 38.9998
+custom_styles/hover = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
+button_mask = 5
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ChatGPTRequest" type="HTTPRequest" parent="."]
+use_threads = true
+script = ExtResource( 2 )
+
+[node name="TextToSpeech" type="AudioStreamPlayer" parent="."]
+script = ExtResource( 1 )
+
+[connection signal="pressed" from="Prompt/Button" to="." method="_on_Button_pressed"]
+[connection signal="completions_request_completed" from="ChatGPTRequest" to="." method="_on_completions_request_completed"]

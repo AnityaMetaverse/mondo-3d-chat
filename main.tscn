@@ -1,0 +1,183 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://main_ui.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Anitya_RObot.tscn" type="PackedScene" id=2]
+[ext_resource path="res://models/Background.glb" type="PackedScene" id=3]
+[ext_resource path="res://models/meta_quest_3_low_poly_oculus_quest_2.glb" type="PackedScene" id=4]
+[ext_resource path="res://models/apple-vision-pro-ios15.glb" type="PackedScene" id=5]
+[ext_resource path="res://Items.gd" type="Script" id=6]
+
+[sub_resource type="CurveTexture" id=2]
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.494382, 0.257235 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=1]
+emission_shape = 2
+emission_box_extents = Vector3( 1, 1, 1 )
+spread = 180.0
+flatness = 1.0
+gravity = Vector3( 0, 9.8, 0 )
+initial_velocity = 2.0
+initial_velocity_random = 1.0
+angular_velocity = 2.0
+angular_velocity_random = 1.0
+damping = 10.0
+damping_random = 1.0
+angle_curve = SubResource( 2 )
+scale_curve = SubResource( 4 )
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_unshaded = true
+
+[sub_resource type="SphereMesh" id=6]
+material = SubResource( 5 )
+radius = 0.1
+height = 0.2
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("meta_quest_3_low_poly_oculus_quest_2:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("apple_vision_pro_ios15:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../Particles:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=8]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.5, 0.5, 0.5 ), Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0 ), Vector3( 0.5, 0.5, 0.5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Particles:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.01, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../Particles:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 180, 0 ) ]
+}
+
+[node name="Spatial" type="Spatial"]
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.79671, 4.5052, 8.07262 )
+
+[node name="Background" parent="." instance=ExtResource( 3 )]
+
+[node name="Anitya_RObot" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.458895, 0, -0.0395106 )
+
+[node name="Particles" type="Particles" parent="."]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.736, 3.7353, 4.7346 )
+emitting = false
+amount = 500
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource( 1 )
+draw_pass_1 = SubResource( 6 )
+
+[node name="Items" type="Spatial" parent="."]
+transform = Transform( 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.736, 3.7353, 4.7346 )
+script = ExtResource( 6 )
+
+[node name="meta_quest_3_low_poly_oculus_quest_2" parent="Items" instance=ExtResource( 4 )]
+visible = false
+
+[node name="apple_vision_pro_ios15" parent="Items" instance=ExtResource( 5 )]
+transform = Transform( -4.37114e-07, 0, 10, 0, 10, 0, -10, 0, -4.37114e-07, 0, 0, 0 )
+visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Items"]
+anims/RESET = SubResource( 7 )
+anims/hide = SubResource( 8 )
+anims/show = SubResource( 9 )
+
+[node name="Control" parent="." instance=ExtResource( 1 )]
+
+[connection signal="show_product" from="Control" to="Items" method="_on_Control_show_product"]

@@ -59,6 +59,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/ai_assist/core/ais/image/stable_diffusion_xl_request.gd"
 }, {
+"base": "AudioStreamPlayer",
+"class": "TextToSpeech",
+"language": "GDScript",
+"path": "res://addons/texttospeech/TextToSpeech.gd"
+}, {
+"base": "AudioStreamPlayer2D",
+"class": "TextToSpeech2D",
+"language": "GDScript",
+"path": "res://addons/texttospeech/TextToSpeech2D.gd"
+}, {
+"base": "AudioStreamPlayer3D",
+"class": "TextToSpeech3D",
+"language": "GDScript",
+"path": "res://addons/texttospeech/TextToSpeech3D.gd"
+}, {
 "base": "Reference",
 "class": "User",
 "language": "GDScript",
@@ -75,18 +90,22 @@ _global_script_class_icons={
 "ModelAIBase": "",
 "StableDiffusionRequest": "",
 "StableDiffusionXLRequest": "",
+"TextToSpeech": "",
+"TextToSpeech2D": "",
+"TextToSpeech3D": "",
 "User": ""
 }
 
 [application]
 
 config/name="mondo-3d-chat"
-run/main_scene="res://main_ui.tscn"
+run/main_scene="res://main.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 AIPluginManager="*res://addons/ai_assist/ai_plugin_manager.gd"
+TextToSpeechEngine="*res://addons/texttospeech/TextToSpeechEngine.gd"
 
 [display]
 
@@ -94,7 +113,7 @@ window/size/height=768
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/ai_assist/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/ai_assist/plugin.cfg", "res://addons/texttospeech/plugin.cfg" )
 
 [gui]
 
