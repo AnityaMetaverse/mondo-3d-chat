@@ -1,13 +1,25 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=25 format=2]
 
-[ext_resource path="res://main_ui.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Anitya_RObot.tscn" type="PackedScene" id=2]
-[ext_resource path="res://models/Background.glb" type="PackedScene" id=3]
+[ext_resource path="res://new_main_ui.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/reception.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/tech.tscn" type="PackedScene" id=3]
 [ext_resource path="res://models/meta_quest_3_low_poly_oculus_quest_2.glb" type="PackedScene" id=4]
 [ext_resource path="res://models/apple-vision-pro-ios15.glb" type="PackedScene" id=5]
 [ext_resource path="res://Items.gd" type="Script" id=6]
+[ext_resource path="res://scenes/sales.tscn" type="PackedScene" id=7]
+[ext_resource path="res://models/oculus_quest_2.glb" type="PackedScene" id=8]
+[ext_resource path="res://models/Lenovo_VRX.tscn" type="PackedScene" id=9]
+[ext_resource path="res://models/sunglass.glb" type="PackedScene" id=10]
+[ext_resource path="res://font/Roboto-Regular.ttf" type="DynamicFontData" id=11]
+[ext_resource path="res://MacBook_Pro_16__-_1.png" type="Texture" id=12]
+
+[sub_resource type="Curve" id=10]
+min_value = -360.0
+max_value = 360.0
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
 
 [sub_resource type="CurveTexture" id=2]
+curve = SubResource( 10 )
 
 [sub_resource type="Curve" id=3]
 _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.494382, 0.257235 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
@@ -88,6 +100,18 @@ tracks/3/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath(".:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 360, 0 ) ]
+}
 
 [sub_resource type="Animation" id=8]
 length = 0.1
@@ -104,6 +128,35 @@ tracks/0/keys = {
 "values": [ Vector3( 0.5, 0.5, 0.5 ), Vector3( 0, 0, 0 ) ]
 }
 
+[sub_resource type="Animation" id=11]
+resource_name = "loop"
+length = 5.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 360, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.5, 0.5, 0.5 ) ]
+}
+
 [sub_resource type="Animation" id=9]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:scale")
@@ -115,7 +168,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0 ), Vector3( 0.5, 0.5, 0.5 ) ]
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0 ), Vector3( 0.8, 0.8, 0.8 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("../Particles:emitting")
@@ -142,15 +195,31 @@ tracks/2/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, 180, 0 ) ]
 }
 
+[sub_resource type="DynamicFont" id=12]
+size = 24
+font_data = ExtResource( 11 )
+
 [node name="Spatial" type="Spatial"]
 
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.79671, 4.5052, 8.07262 )
+[node name="Reception" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -64, 0, 0 )
 
-[node name="Background" parent="." instance=ExtResource( 3 )]
+[node name="Camera" type="Camera" parent="Reception"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.584999, 1.216, 2.215 )
+current = true
+far = 1000.0
 
-[node name="Anitya_RObot" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.458895, 0, -0.0395106 )
+[node name="Tech" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 0, 0 )
+
+[node name="Camera" type="Camera" parent="Tech"]
+transform = Transform( 0.889632, 0, 0.456679, 0, 1, 0, -0.456679, 0, 0.889632, 0.0569992, 1.523, 2.394 )
+
+[node name="Spatial" parent="." instance=ExtResource( 7 )]
+
+[node name="Camera" type="Camera" parent="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.415, 3.296, 8.242 )
+far = 1000.0
 
 [node name="Particles" type="Particles" parent="."]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.736, 3.7353, 4.7346 )
@@ -163,21 +232,64 @@ process_material = SubResource( 1 )
 draw_pass_1 = SubResource( 6 )
 
 [node name="Items" type="Spatial" parent="."]
-transform = Transform( 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.736, 3.7353, 4.7346 )
+transform = Transform( 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.736, 3.15, 4.735 )
 script = ExtResource( 6 )
 
 [node name="meta_quest_3_low_poly_oculus_quest_2" parent="Items" instance=ExtResource( 4 )]
+transform = Transform( 7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0.793367 )
 visible = false
 
 [node name="apple_vision_pro_ios15" parent="Items" instance=ExtResource( 5 )]
 transform = Transform( -4.37114e-07, 0, 10, 0, 10, 0, -10, 0, -4.37114e-07, 0, 0, 0 )
 visible = false
 
+[node name="Lenovo_VRX" parent="Items" instance=ExtResource( 9 )]
+transform = Transform( 0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 11.4509, -0.628062, 1.12047 )
+visible = false
+
+[node name="oculus_quest_2" parent="Items" instance=ExtResource( 8 )]
+transform = Transform( 1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, -0.0309124, 1.11091 )
+visible = false
+
+[node name="sunglass" parent="Items" instance=ExtResource( 10 )]
+transform = Transform( 0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0 )
+visible = false
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Items"]
 anims/RESET = SubResource( 7 )
 anims/hide = SubResource( 8 )
+anims/loop = SubResource( 11 )
 anims/show = SubResource( 9 )
 
-[node name="Control" parent="." instance=ExtResource( 1 )]
+[node name="Control2" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
 
+[node name="MacBookPro16-1" type="TextureRect" parent="Control2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 12 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Control2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 366.0
+custom_fonts/font = SubResource( 12 )
+text = "Youve purchased a product"
+align = 1
+valign = 1
+
+[node name="Control" parent="." instance=ExtResource( 1 )]
+character_animation = [ NodePath("../Reception/Reception/Rodrigo_recepcionist/AnimationPlayer"), NodePath("../Spatial/Background/Salle_Girl_Animated/AnimationPlayer") ]
+cameras = [ NodePath("../Reception/Camera"), NodePath("../Spatial/Camera") ]
+
+[connection signal="purchase_product" from="Control" to="Items" method="_on_Control_purchase_product"]
 [connection signal="show_product" from="Control" to="Items" method="_on_Control_show_product"]
+
+[editable path="Reception"]
+[editable path="Reception/Reception/Rodrigo_recepcionist"]
+[editable path="Spatial"]
+[editable path="Spatial/Background/Salle_Girl_Animated"]

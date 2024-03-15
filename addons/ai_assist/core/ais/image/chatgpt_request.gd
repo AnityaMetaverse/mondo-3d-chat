@@ -8,6 +8,7 @@ const END_POINT = "https://api.openai.com/v1/"
 # USE THIS SIGNALS TO GET RESULTS
 signal completions_request_completed(result)
 signal embeddings_completed(result)
+signal function_call_requested(fn, args)
 
 # EXCEPTION SIGNALS
 signal error(message)
@@ -57,18 +58,56 @@ func _on_request_completed(result: int, response_code: int, headers: PoolStringA
 
 # CHATBOT
 func _on_completions_request_completed(result):
-	emit_signal("completions_request_completed", result.choices[0].message)
+	match result.choices[0]["finish_reason"]:
+		"function_call":
+			var function = result.choices[0].message.function_call
+			var arguments = JSON.parse(function.arguments).result
+			emit_signal("function_call_requested", function.name, arguments)
+		"stop":
+			emit_signal("completions_request_completed", result.choices[0].message)
 
 
 func completions(messages: Array):
 	var request_params = {
-		"model": "gpt-3.5-turbo",
+		"model": "gpt-4",
 		"messages": messages,
 		"max_tokens": 1920,
 		"temperature": 0,
-		"top_p": 1,
-		"frequency_penalty": 0.5,
-		"presence_penalty": 0.5,
+		"top_p": 0,
+		"frequency_penalty": 0.2,
+		"presence_penalty": 0.4,
+		"functions":[
+			{"name":"show_product", "description":"this function is used to show a product",
+				"parameters": {
+					"type": "object",
+					"properties": {
+						"product_id": {
+							"type": "integer",
+							"description": "The unique identifier of the product.",
+						}
+					},
+					"required": ["product_id"]}},
+			{"name":"direct_to", "description":"this function is used to direct the user to another person in the company",
+				"parameters": {
+					"type": "object",
+					"properties": {
+						"person_name": {
+							"type": "string",
+							"description": "The name of the person in the company",
+						}
+					},
+					"required": ["person_name"]}},
+			{"name":"purchase_product", "description":"this function is used to purchase the product for the user",
+				"parameters": {
+					"type": "object",
+					"properties": {
+						"product_name": {
+							"type": "string",
+							"description": "The product name",
+						}
+					},
+					"required": ["product_name"]}}],
+		"function_call": "auto",
 	}
 
 	connect("request_completed", self, "_on_request_completed", ["_on_completions_request_completed"], CONNECT_ONESHOT)

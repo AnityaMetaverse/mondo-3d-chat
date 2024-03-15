@@ -100,6 +100,7 @@ _global_script_class_icons={
 
 config/name="mondo-3d-chat"
 run/main_scene="res://main.tscn"
+boot_splash/image="res://MacBook_Pro_16__-_1.png"
 config/icon="res://icon.png"
 
 [autoload]

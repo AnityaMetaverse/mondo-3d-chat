@@ -1,8 +1,20 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://addons/texttospeech/TextToSpeech.gd" type="Script" id=1]
 [ext_resource path="res://addons/ai_assist/core/ais/image/chatgpt_request.gd" type="Script" id=2]
 [ext_resource path="res://main_ui.gd" type="Script" id=3]
+[ext_resource path="res://font/Roboto-Regular.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://images/ArrowUpRight.svg" type="Texture" id=5]
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0, 0, 0, 0.2 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="DynamicFont" id=7]
+font_data = ExtResource( 4 )
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0, 0, 0, 0.2 )
@@ -11,47 +23,81 @@ corner_radius_top_right = 200
 corner_radius_bottom_right = 200
 corner_radius_bottom_left = 200
 
+[sub_resource type="DynamicFont" id=8]
+font_data = ExtResource( 4 )
+
 [sub_resource type="StyleBoxEmpty" id=5]
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 1, 0, 0, 1 )
-corner_radius_top_left = 39
-corner_radius_top_right = 39
-corner_radius_bottom_right = 39
-corner_radius_bottom_left = 39
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
 
 [sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0, 0, 0, 0.21 )
-corner_radius_top_left = 39
-corner_radius_top_right = 39
-corner_radius_bottom_right = 39
-corner_radius_bottom_left = 39
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 3 )
 
-[node name="History" type="VBoxContainer" parent="."]
-anchor_left = 0.0234375
-anchor_top = 0.078125
+[node name="History" type="ScrollContainer" parent="."]
+anchor_left = 0.625
 anchor_right = 0.976563
-anchor_bottom = 0.777344
+anchor_bottom = 0.921875
+follow_focus = true
+scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
-[node name="PanelContainer" type="PanelContainer" parent="History"]
+[node name="VBoxContainer" type="VBoxContainer" parent="History"]
+margin_right = 360.0
+margin_bottom = 708.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="History/VBoxContainer"]
+visible = false
+margin_top = 252.0
 margin_right = 976.0
-margin_bottom = 29.0
+margin_bottom = 288.0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="History/PanelContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 969.0
-margin_bottom = 22.0
+[node name="PanelContainer" type="PanelContainer" parent="History/VBoxContainer/MarginContainer"]
+margin_right = 976.0
+margin_bottom = 36.0
+custom_styles/panel = SubResource( 6 )
+
+[node name="MarginContainer" type="MarginContainer" parent="History/VBoxContainer/MarginContainer/PanelContainer"]
+margin_right = 976.0
+margin_bottom = 36.0
+custom_constants/margin_right = 16
+custom_constants/margin_top = 8
+custom_constants/margin_left = 16
+custom_constants/margin_bottom = 8
+
+[node name="RichTextLabel" type="RichTextLabel" parent="History/VBoxContainer/MarginContainer/PanelContainer/MarginContainer"]
+margin_left = 16.0
+margin_top = 8.0
+margin_right = 960.0
+margin_bottom = 28.0
+custom_fonts/normal_font = SubResource( 7 )
+bbcode_enabled = true
 fit_content_height = true
 
 [node name="Prompt" type="Panel" parent="."]
-anchor_left = 0.0234375
-anchor_top = 0.859375
+anchor_left = 0.625
+anchor_top = 0.929688
 anchor_right = 0.976563
 anchor_bottom = 0.976563
 custom_styles/panel = SubResource( 2 )
@@ -60,10 +106,11 @@ __meta__ = {
 }
 
 [node name="TextEdit" type="TextEdit" parent="Prompt"]
-anchor_left = 0.0409836
-anchor_top = 0.0666667
-anchor_right = 0.901639
-anchor_bottom = 0.933333
+anchor_left = 0.0444444
+anchor_top = 0.0555556
+anchor_right = 0.888889
+anchor_bottom = 0.916667
+custom_fonts/font = SubResource( 8 )
 custom_styles/normal = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": true
@@ -74,16 +121,15 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -88.0005
-margin_top = -39.0002
-margin_right = -10.0005
-margin_bottom = 38.9998
+margin_left = -35.0
+margin_top = -16.0
+margin_right = -3.0
+margin_bottom = 16.0
 custom_styles/hover = SubResource( 3 )
 custom_styles/normal = SubResource( 4 )
 button_mask = 5
-__meta__ = {
-"_edit_use_anchors_": true
-}
+icon = ExtResource( 5 )
+icon_align = 1
 
 [node name="ChatGPTRequest" type="HTTPRequest" parent="."]
 use_threads = true
@@ -94,3 +140,4 @@ script = ExtResource( 1 )
 
 [connection signal="pressed" from="Prompt/Button" to="." method="_on_Button_pressed"]
 [connection signal="completions_request_completed" from="ChatGPTRequest" to="." method="_on_completions_request_completed"]
+[connection signal="function_call_requested" from="ChatGPTRequest" to="." method="_on_function_call_requested"]
